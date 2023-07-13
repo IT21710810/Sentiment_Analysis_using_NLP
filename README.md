@@ -1,14 +1,14 @@
 # Sentiment_Analysis_using_NLP
 AL/ML Task1
 
-Lesson 6 - Task 2 – Sentiment Analysis using NLP
+##Lesson 6 - Task 2 – Sentiment Analysis using NLP
 
 
 Sentiment analysis is one of the popular downstream applications of Natural Language Processing, which determines the sentiment expressed in a piece of text. The sentiment expressed in a text is usually classified as positive or negative or neutral. You are expected to train a machine learning model to predict the sentiment of Tweets posted about US Airlines.  
 
 
 
-Step 1 – Load the Dataset
+#Step 1 – Load the Dataset
 
 Download the dataset using the following link:
 https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment
@@ -20,74 +20,43 @@ df = df[["airline_sentiment", "text"]]
 
 
 
-Step 2 – Preprocess Text
-
+#Step 2 – Preprocess Text
 The following code snippet preprocesses the text by obtaining lower case, removing URLs, removing stop words, and generating stem. Add the code snippet to your notebook.
 import nltk
-
 import string
-
 import re
-
-
-
 from nltk.stem.porter import PorterStemmer
-
-
-
-nltk.download('stopwords')
-
 from nltk.corpus import stopwords
 
-
-
+nltk.download('stopwords')
 nltk.download('punkt')
 
 ps = PorterStemmer()
 
-
-
-
-
-defclean_text(text):
-
+def clean_text(text):
     text = text.lower()
-
     text = re.sub(r'http.?://[^\s]+[\s]?', '', text)
-
     text = nltk.word_tokenize(text)
-
     y = []
-
-for i in text:
-
-if i notin stopwords.words('english'):
-
+    for i in text:
+        if i not in stopwords.words('english'):
             y.append(i)
-
     text = y[:]
-
     y.clear()
-
-for i in text:
-
+    for i in text:
         y.append(ps.stem(i))
-
-return" ".join(y)
-
-
+    return " ".join(y)
 
 Apply “clean_text” function to “text” column and assign the resulting text to new column named “text_cleaned”.
 
-
-Step 3 – Feature Extraction
+#Step 3 – Feature Extraction
 
 Create a “TfidfVectorizer” using the “sklearn” library by specifying “max_features” as 3000
 Use “TfidfVectorizer”  created to generate TF-IDF vector representation of cleaned text in the column “text_cleaned”, convert the vector representation to an array, and assigned it to a new variable named “X”.
 Convert the column “airline_sentiment” to an array and assigned it to a new variable named “Y”.
 
 
-Step 4 – Train Model
+#Step 4 – Train Model
 
 Split the dataset into training and testing sets using the function “train_test_split” available in the “sklearn” library. Set the parameters of the functions “test_size” to 0.2 and “random_state” to 2.
 Train a multinomial Naïve Bayes classifier using the training dataset and predict the sentiment of tweets in the test dataset. Find the accuracy of the model in predicting sentiment labels for the test dataset.
